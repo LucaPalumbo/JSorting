@@ -31,6 +31,7 @@ function buildPage(){
   alg.position(100, 10);
   alg.option('Selection Sort');
   alg.option('Insertion Sort');
+  alg.option('Quick Sort');
   alg.selected('Insertion Sort');
 
   // number of element
@@ -93,6 +94,8 @@ function StartSort() {
     iterator = InsertionSort(arr);
   if( alg.value() == "Selection Sort")
     iterator = SelectionSort(arr);
+  if( alg.value() == "Quick Sort")
+    iterator = QuickSort(arr,0,num_el-1);
   running = true
 }
 

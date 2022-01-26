@@ -26,6 +26,11 @@ function* InsertionSort(array){
 }
 
 function* SelectionSort(array){
+  // Basic idea:
+  // Find the minimum element in the array and place it as first element.
+  // Find the minimum element positioned between 2nd and last element,
+  // place it as second.
+  // Repeat until finshed
   let t = 0;
   let min, minIndex;
   for (let i=0; i<array.length ;i++){
@@ -45,4 +50,47 @@ function* SelectionSort(array){
 
   }
   return true
+}
+
+function* QuickSort(array,inf,sup){
+  let t;
+  let pivot = array[floor((inf+sup)/2)];
+  let h = inf, k = sup;
+  while (h < k){
+    while (array[h]<pivot){
+      h++;
+      yield [h];
+    }
+    while (array[k]>pivot){
+      k--;
+      yield [h,k];
+    }
+    if(h>k){
+      break;
+    }
+    t = array[k];
+    array[k] = array[h];
+    array[h] = t;
+    h++; k--;
+
+  }
+  if(h<sup){
+    let iterator = QuickSort(array,h,sup);
+    let yieldReturn = iterator.next().value;
+    while( yieldReturn !== true ){
+      yield yieldReturn;
+      yieldReturn = iterator.next().value;
+    }
+
+  }
+  if(k>inf){
+    let iterator = QuickSort(array,inf,k);
+    let yieldReturn = iterator.next().value;
+    while( yieldReturn !== true ){
+      yield yieldReturn;
+      yieldReturn = iterator.next().value;
+    }
+  }
+  return true;
+
 }
